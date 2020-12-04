@@ -13,6 +13,8 @@ gitee [cup-nodejs](https://gitee.com/wuyanshen/cup-nodejs)
 
 github [cup-nodejs](https://github.com/wuyanshen/cup-nodejs)
 
+## 线上体验地址
+[cup-nodejs](http://cupnode.lvcoding.com)
 
 ## 项目说明
 
