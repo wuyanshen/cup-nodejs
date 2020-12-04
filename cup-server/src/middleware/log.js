@@ -42,11 +42,7 @@ module.exports = (options, app) => {
         error_no: errorNo
       };
       // 新增日志对象
-      try {
-        const result = await think.service('log', 'admin').add(logData);
-      } catch (e) {
-        console.log('新增日志失败');
-      }
+      await think.service('log', 'admin').add(logData);
     });
   };
 };

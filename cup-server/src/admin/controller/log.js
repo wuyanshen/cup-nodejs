@@ -32,7 +32,7 @@ module.exports = class extends Base {
       const res = await this.model('log').where(whereObj).page(page, size).order('oper_time DESC').countSelect();
       return this.success(res, '查询成功');
     } catch (e) {
-      return this.fail('查询失败');
+      return this.fail('查询失败  ' + e);
     }
   }
 

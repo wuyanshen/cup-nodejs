@@ -4,7 +4,7 @@ module.exports = class extends think.Service {
      */
   async add(logData) {
     try {
-      await this.model('log').add(logData);
+      await think.model('log').add(logData);
       return 'success';
     } catch (e) {
       return new Error(e);

@@ -37,7 +37,7 @@ module.exports = class extends Base {
       const res = await this.model('role').where(whereObj).page(page, size).countSelect();
       return this.success(res, '查询成功');
     } catch (e) {
-      return this.fail('查询失败');
+      return this.fail('查询失败  ' + e);
     }
   }
 
@@ -79,7 +79,7 @@ module.exports = class extends Base {
         });
       return this.success('', '新增成功');
     } catch (e) {
-      return this.fail('新增失败');
+      return this.fail('新增失败  ' + e);
     }
   }
 
@@ -124,7 +124,7 @@ module.exports = class extends Base {
         });
       return this.success('', '修改成功');
     } catch (e) {
-      return this.fail('修改失败');
+      return this.fail('修改失败  ' + e);
     }
   }
 
@@ -149,7 +149,7 @@ module.exports = class extends Base {
         .delete();
       return this.success('', '删除成功');
     } catch (e) {
-      return this.fail('删除失败');
+      return this.fail('删除失败  ' + e);
     }
   }
 
@@ -177,7 +177,7 @@ module.exports = class extends Base {
       });
       return this.success(menuIds, '查询成功');
     } catch (e) {
-      return this.fail('查询失败');
+      return this.fail('查询失败  ' + e);
     }
   }
 
@@ -221,7 +221,7 @@ module.exports = class extends Base {
       }
       return this.success('', '授权成功');
     } catch (e) {
-      return this.fail('授权失败');
+      return this.fail('授权失败  ' + e);
     }
   }
 
@@ -241,7 +241,7 @@ module.exports = class extends Base {
       const res = await this.model('role').select();
       return this.success(res, '查询成功');
     } catch (e) {
-      return this.fail('查询失败');
+      return this.fail('查询失败 ' + e);
     }
   }
 };

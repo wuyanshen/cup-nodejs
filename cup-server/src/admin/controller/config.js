@@ -49,7 +49,7 @@ module.exports = class extends Base {
       const res = await this.model('config').where(whereObj).page(page, size).countSelect();
       return this.success(res, '查询成功');
     } catch (e) {
-      return this.fail('查询失败');
+      return this.fail('查询失败  ' + e);
     }
   }
 
@@ -89,7 +89,7 @@ module.exports = class extends Base {
       });
       return this.success('', '新增成功');
     } catch (e) {
-      return this.fail('新增失败');
+      return this.fail('新增失败  ' + e);
     }
   }
 
@@ -117,7 +117,7 @@ module.exports = class extends Base {
       await this.model('config').where({id: id}).delete();
       return this.success('', '删除成功');
     } catch (e) {
-      return this.fail('删除失败');
+      return this.fail('删除失败  ' + e);
     }
   }
 
@@ -160,7 +160,7 @@ module.exports = class extends Base {
       });
       return this.success('', '修改成功');
     } catch (e) {
-      return this.fail('修改失败');
+      return this.fail('修改失败  ' + e);
     }
   }
 
@@ -184,7 +184,7 @@ module.exports = class extends Base {
       const res = await this.model('config').where({key: key}).find();
       return this.success(res, '查询成功');
     } catch (e) {
-      return this.fail('查询失败');
+      return this.fail('查询失败  ' + e);
     }
   }
 };
