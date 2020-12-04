@@ -20,6 +20,8 @@ module.exports = class extends Base {
       username: username
     }).find();
 
+    think.username = username;
+
     // 如果没查到用户
     if (think.isEmpty(data)) {
       return this.fail('用户名或密码错误');

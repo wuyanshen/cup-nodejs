@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { resetPwd, checkPwd } from '@/api/user'
+import { updatePwd, checkPwd } from '@/api/user'
 
 export default {
   data() {
@@ -68,7 +68,7 @@ export default {
           const data = {
             password: this.user.newPassword
           }
-          resetPwd(data).then(
+          updatePwd(data).then(
             response => {
               this.msgSuccess('修改密码成功')
             }

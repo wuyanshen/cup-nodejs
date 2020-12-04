@@ -116,7 +116,7 @@ module.exports = class extends Base {
     const orgId = this.post('org_id') || '';
     const phone = this.post('phone') || '';
     const email = this.post('email') || '';
-    const avatar = this.post('avatar') || '';
+    const avatar = this.post('avatar') || 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif';
     const status = this.post('status') || '';
     const roleIds = this.post('roleIds') || [];
     const pwd = this.post('password') || [];
@@ -259,6 +259,38 @@ module.exports = class extends Base {
   }
 
   /**
+   * @api {put} /user/updatePwd 个人中心修改密码
+   * @apiVersion 1.0.0
+   * @apiDescription create by wuyanshen
+   * @apiName updatePwd
+   * @apiGroup 用户管理
+   *
+   * @apiParam {int} id 用户id【必填】
+   * @apiParam {String} username 用户名【必填】
+   * @apiParam {String} password 密码【必填】
+   *
+   * @apiUse RequestHeader
+   * @apiUse RequestSuccess
+   * @apiUse RequestError
+   */
+  async updatePwdAction() {
+    const id = this.post('id') || think.userId;
+    const username = this.post('username') || think.username;
+    const password = this.post('password') || '';
+    const pwd = think.md5(`${password}${username}`);
+    try {
+      await this.model('user')
+        .where({id: id})
+        .update({
+          password: pwd
+        });
+      return this.success('', '修改成功');
+    } catch (e) {
+      return this.fail('修改失败');
+    }
+  }
+
+  /**
    * @api {put} /user/resetPwd 重置密码
    * @apiVersion 1.0.0
    * @apiDescription create by wuyanshen
@@ -274,8 +306,8 @@ module.exports = class extends Base {
    * @apiUse RequestError
    */
   async resetPwdAction() {
-    const id = this.post('id') || think.userId;
-    const username = this.post('username') || think.username;
+    const id = this.post('id');
+    const username = this.post('username') || '';
     const password = this.post('password') || '';
     const pwd = think.md5(`${password}${username}`);
     try {

@@ -14,7 +14,7 @@ module.exports = {
     'user/info', // 登录成功后查询用户信息
     'user/profile', // 更新个人资料
     'user/checkPwd', // 检查旧密码是否正确
-    'user/resetPwd', // 重置密码
+    'user/updatePwd', // 重置密码
     'menu/tree', // 左侧菜单
     'menu/all', // 授权
     'role/all', // 用户管理角色下拉列表

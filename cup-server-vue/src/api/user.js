@@ -27,12 +27,21 @@ export function getInfo(token) {
   })
 }
 
+/** 个人中心修改密码 **/
+export function updatePwd(data) {
+  return request({
+    url: '/user/updatePwd',
+    method: 'put',
+    data
+  })
+}
+
 /** 重置用户密码 **/
 export function resetPwd(data) {
   return request({
     url: '/user/resetPwd',
     method: 'put',
-    params: data
+    data
   })
 }
 

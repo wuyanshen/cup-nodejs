@@ -153,7 +153,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="状态码">
-              {{ form.status }}
+              {{ form.error_no }}
             </el-form-item>
           </el-col>
         </el-row>

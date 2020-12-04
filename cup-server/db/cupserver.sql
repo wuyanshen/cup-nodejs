@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地mysql5.8.0.19
+ Source Server         : mac_mysql_5.7
  Source Server Type    : MySQL
- Source Server Version : 80019
+ Source Server Version : 50729
  Source Host           : localhost:3306
  Source Schema         : cupserver
 
  Target Server Type    : MySQL
- Target Server Version : 80019
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 03/12/2020 23:39:34
+ Date: 04/12/2020 16:56:57
 */
 
 SET NAMES utf8mb4;
@@ -21,69 +21,74 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for cup_config
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_config`;
-CREATE TABLE `cup_config`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '配置名称',
-  `key` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '配置键',
-  `value` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '配置值',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '状态 0正常 1停用',
-  `is_sys` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '是否系统内置 0否 1是',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '是否删除 0否 1是',
+CREATE TABLE `cup_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(50) DEFAULT NULL COMMENT '配置名称',
+  `key` varchar(50) DEFAULT NULL COMMENT '配置键',
+  `value` varchar(50) DEFAULT NULL COMMENT '配置值',
+  `status` varchar(1) DEFAULT '0' COMMENT '状态 0正常 1停用',
+  `is_sys` varchar(1) DEFAULT '0' COMMENT '是否系统内置 0否 1是',
+  `remark` varchar(500) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除 0否 1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of cup_config
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_config` VALUES (1, '默认初始密码', 'sys_password_init', '123456', '0', '1', '默认初始密码', '2020-11-29 13:20:14', '2020-11-29 15:17:31', 0);
 INSERT INTO `cup_config` VALUES (2, '测试', 'test', '123123123', '1', '0', '测试', '2020-11-29 13:23:40', '2020-11-30 23:37:52', 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_dict
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_dict`;
-CREATE TABLE `cup_dict`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典名称',
-  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典类型',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '状态 0正常 1停用',
-  `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '是否删除 0否 1是',
+CREATE TABLE `cup_dict` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `name` varchar(50) DEFAULT NULL COMMENT '字典名称',
+  `type` varchar(50) DEFAULT NULL COMMENT '字典类型',
+  `status` varchar(1) DEFAULT '0' COMMENT '状态 0正常 1停用',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除 0否 1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典表';
 
 -- ----------------------------
 -- Records of cup_dict
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_dict` VALUES (1, '系统状态', 'sys_common_status', '0', '系统状态', '2020-11-27 17:23:45', '2020-11-29 11:50:18', 0);
 INSERT INTO `cup_dict` VALUES (5, '系统模块', 'sys_module', '0', '系统模块', '2020-11-30 23:14:31', '2020-11-30 23:14:38', 0);
 INSERT INTO `cup_dict` VALUES (8, '日志状态', 'sys_log_status', '0', '日志状态', '2020-11-30 23:28:00', NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_dict_item
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_dict_item`;
-CREATE TABLE `cup_dict_item`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `label` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典标签',
-  `value` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典值',
-  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '字典类型',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '状态 0正常 1停用',
-  `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '是否删除 0否 1是',
+CREATE TABLE `cup_dict_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `label` varchar(50) DEFAULT NULL COMMENT '字典标签',
+  `value` varchar(50) DEFAULT NULL COMMENT '字典值',
+  `type` varchar(50) DEFAULT NULL COMMENT '字典类型',
+  `status` varchar(1) DEFAULT '0' COMMENT '状态 0正常 1停用',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除 0否 1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典项表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典项表';
 
 -- ----------------------------
 -- Records of cup_dict_item
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_dict_item` VALUES (5, '正常', '0', 'sys_common_status', '0', '正常', '2020-11-28 23:24:01', '2020-11-29 11:11:47', 0);
 INSERT INTO `cup_dict_item` VALUES (6, '停用', '1', 'sys_common_status', '0', '停用', '2020-11-28 23:24:15', '2020-11-29 11:11:52', 0);
 INSERT INTO `cup_dict_item` VALUES (9, '用户管理', 'user', 'sys_module', '0', '用户管理', '2020-11-30 23:15:00', NULL, 0);
@@ -97,62 +102,67 @@ INSERT INTO `cup_dict_item` VALUES (16, '正常', '0', 'sys_log_status', '0', '�
 INSERT INTO `cup_dict_item` VALUES (18, '异常', '1', 'sys_log_status', '0', '异常', '2020-11-30 23:28:54', NULL, 0);
 INSERT INTO `cup_dict_item` VALUES (19, '登录/登出', 'auth', 'sys_module', '0', '登录/登出', '2020-12-01 00:15:36', NULL, 0);
 INSERT INTO `cup_dict_item` VALUES (20, '字典项', 'dictItem', 'sys_module', '0', '字典项', '2020-12-01 00:16:31', NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_log
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_log`;
-CREATE TABLE `cup_log`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `module` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '模块名称',
-  `url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '请求url',
-  `method` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '请求方式',
-  `method_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '请求方法名称',
-  `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '请求参数',
-  `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '返回参数',
-  `oper_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '操作时间',
-  `oper_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作人员',
-  `oper_ip` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主机地址',
-  `oper_location` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作地点',
-  `status` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作状态 0正常 1异常',
-  `error_msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '错误信息',
+CREATE TABLE `cup_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `module` varchar(50) DEFAULT NULL COMMENT '模块名称',
+  `url` varchar(100) DEFAULT NULL COMMENT '请求url',
+  `method` varchar(10) DEFAULT NULL COMMENT '请求方式',
+  `method_name` varchar(50) DEFAULT NULL COMMENT '请求方法名称',
+  `params` varchar(255) DEFAULT NULL COMMENT '请求参数',
+  `response` text COMMENT '返回参数',
+  `oper_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+  `oper_name` varchar(20) DEFAULT NULL COMMENT '操作人员',
+  `oper_ip` varchar(20) DEFAULT NULL COMMENT '主机地址',
+  `oper_location` varchar(50) DEFAULT NULL COMMENT '操作地点',
+  `status` varchar(10) DEFAULT NULL COMMENT '操作状态 0正常 1异常',
+  `error_msg` text COMMENT '错误信息',
+  `error_no` varchar(10) DEFAULT NULL COMMENT '请求状态码',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 153 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='操作日志表';
 
 -- ----------------------------
 -- Records of cup_log
 -- ----------------------------
-INSERT INTO `cup_log` VALUES (156, 'auth', '/admin/auth/login', 'POST', 'login', '{\"username\":\"admin\",\"password\":\"123456\"}', '{\"errno\":0,\"errmsg\":\"登录成功\",\"data\":{\"userInfo\":{\"id\":5,\"username\":\"admin\"},\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTYwNzAwNjY2MiwiZXhwIjoxNjA3MDA4NDYyfQ.homr-TGN2945ULyAJ6L_Y6jOLN9_EkXFN9WYKHBaaT4\"}}', '2020-12-03 22:44:23', NULL, '223.11.201.137', '山西省太原市', '0', NULL);
-INSERT INTO `cup_log` VALUES (157, 'auth', '/admin/auth/login', 'POST', 'login', '{\"username\":\"admin\",\"password\":\"123456\"}', '{\"errno\":0,\"errmsg\":\"登录成功\",\"data\":{\"userInfo\":{\"id\":5,\"username\":\"admin\"},\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTYwNzAwODIyNiwiZXhwIjoxNjA3MDEwMDI2fQ.v0CleiOI5nFHMIkfBVHSmM-A9sPsVtkVQFs2UvuQh-E\"}}', '2020-12-03 23:10:27', NULL, '223.11.201.137', '山西省太原市', '0', NULL);
-INSERT INTO `cup_log` VALUES (158, 'auth', '/admin/auth/login', 'POST', 'login', '{\"username\":\"admin\",\"password\":\"123456\"}', '{\"errno\":0,\"errmsg\":\"登录成功\",\"data\":{\"userInfo\":{\"id\":5,\"username\":\"admin\"},\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTYwNzAwODg3NCwiZXhwIjoxNjA3MDEwNjc0fQ.MjQBU5vu06tavuA3ETVgaCcIgxw-AmbXggpOvRvciZo\"}}', '2020-12-03 23:21:14', NULL, '223.11.201.137', '山西省太原市', '0', NULL);
+BEGIN;
+INSERT INTO `cup_log` VALUES (256, 'log', '/admin/log/clear', 'DELETE', 'clear', NULL, '{\"errno\":0,\"errmsg\":\"清空成功\",\"data\":\"\"}', '2020-12-04 16:03:50', 'admin', '221.205.152.43', '山西省太原市', '0', NULL, '0');
+INSERT INTO `cup_log` VALUES (257, 'auth', '/admin/auth/logout', 'POST', 'logout', NULL, '{\"errno\":0,\"errmsg\":\"\",\"data\":\"退出成功\"}', '2020-12-04 16:06:48', NULL, '221.205.152.43', '山西省太原市', '0', NULL, '0');
+INSERT INTO `cup_log` VALUES (258, 'auth', '/admin/auth/login', 'POST', 'login', '{\"username\":\"admin\",\"password\":\"123456\"}', '{\"errno\":0,\"errmsg\":\"登录成功\",\"data\":{\"userInfo\":{\"id\":5,\"username\":\"admin\"},\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTYwNzA2OTIxNCwiZXhwIjoxNjA3MDcxMDE0fQ.1hSkUVLKNqn2k0DSLPaZM6zngfnZmOjshpbwOQo3BeQ\"}}', '2020-12-04 16:06:54', 'admin', '221.205.152.43', '山西省太原市', '0', NULL, '0');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_menu`;
-CREATE TABLE `cup_menu`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `pid` int NULL DEFAULT NULL COMMENT '父id',
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '路由地址',
-  `permission` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '按钮权限',
-  `component` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '组件路径',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单名称',
-  `icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单图标',
-  `visible` int NULL DEFAULT 1 COMMENT '是否显示 1是 0否',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '状态 1停用 0正常',
-  `is_cache` int NULL DEFAULT 1 COMMENT '是否缓存 1是 0否',
-  `is_frame` int NULL DEFAULT 0 COMMENT '是否为外链（1是 0否）',
-  `type` int NULL DEFAULT NULL COMMENT '类型：1菜单 2按钮 3目录',
-  `sort_num` int NULL DEFAULT 0 COMMENT '排序',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '是否删除 1是 0否',
+CREATE TABLE `cup_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `pid` int(11) DEFAULT NULL COMMENT '父id',
+  `path` varchar(255) DEFAULT NULL COMMENT '路由地址',
+  `permission` varchar(50) DEFAULT NULL COMMENT '按钮权限',
+  `component` varchar(50) DEFAULT NULL COMMENT '组件路径',
+  `name` varchar(50) DEFAULT NULL COMMENT '菜单名称',
+  `icon` varchar(50) DEFAULT NULL COMMENT '菜单图标',
+  `visible` int(11) DEFAULT '1' COMMENT '是否显示 1是 0否',
+  `status` varchar(1) DEFAULT '1' COMMENT '状态 1停用 0正常',
+  `is_cache` int(11) DEFAULT '1' COMMENT '是否缓存 1是 0否',
+  `is_frame` int(11) DEFAULT '0' COMMENT '是否为外链（1是 0否）',
+  `type` int(11) DEFAULT NULL COMMENT '类型：1菜单 2按钮 3目录',
+  `sort_num` int(11) DEFAULT '0' COMMENT '排序',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除 1是 0否',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of cup_menu
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_menu` VALUES (1, 13, 'user', '', 'system/user/index', '用户管理', 'user', 1, '0', 1, 0, 1, 0, '2020-11-23 23:34:41', '2020-11-29 09:10:09', 0);
 INSERT INTO `cup_menu` VALUES (2, 13, 'role', '', 'system/role/index', '角色管理', 'peoples', 1, '0', 1, 0, 1, 0, '2020-11-23 23:34:41', '2020-11-29 09:10:09', 0);
 INSERT INTO `cup_menu` VALUES (3, 13, 'menu', '', 'system/menu/index', '菜单管理', 'table', 1, '0', 1, 0, 1, 0, '2020-11-23 23:34:41', '2020-11-29 12:26:50', 0);
@@ -194,47 +204,31 @@ INSERT INTO `cup_menu` VALUES (44, 41, '', '/log/clear', NULL, '清空日志', '
 INSERT INTO `cup_menu` VALUES (45, 0, '', '', NULL, '系统监控', 'monitor', 1, '0', 1, 0, 3, 2, '2020-12-01 15:53:22', '2020-12-01 15:58:51', 0);
 INSERT INTO `cup_menu` VALUES (46, 45, 'monitor', '', 'system/monitor/index', '服务监控', 'server', 1, '0', 1, 0, 1, 0, '2020-12-01 15:56:10', NULL, 0);
 INSERT INTO `cup_menu` VALUES (47, 45, 'http://localhost:9999/static/apidoc/index.html', '', NULL, '接口API', 'documentation', 1, '0', 1, 1, 3, 0, '2020-12-03 14:39:46', NULL, 0);
-
--- ----------------------------
--- Table structure for cup_order
--- ----------------------------
-DROP TABLE IF EXISTS `cup_order`;
-CREATE TABLE `cup_order`  (
-  `id` int NOT NULL COMMENT '主键',
-  `order_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '订单号',
-  `status` int NULL DEFAULT NULL COMMENT '订单状态 1：未支付 2：已支付 3：支付失败',
-  `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_date` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '删除标记 1：删除 0：未删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of cup_order
--- ----------------------------
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_org
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_org`;
-CREATE TABLE `cup_org`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `pid` int NULL DEFAULT 0 COMMENT '机构父id',
-  `pids` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所有父级id',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '机构名称',
-  `address` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '机构地址',
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '手机号',
-  `sort_num` int NULL DEFAULT 0 COMMENT '排序',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '删除标记 0未删除 1已删除',
+CREATE TABLE `cup_org` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `pid` int(11) DEFAULT '0' COMMENT '机构父id',
+  `pids` varchar(100) DEFAULT NULL COMMENT '所有父级id',
+  `name` varchar(50) DEFAULT NULL COMMENT '机构名称',
+  `address` varchar(50) DEFAULT NULL COMMENT '机构地址',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `sort_num` int(11) DEFAULT '0' COMMENT '排序',
+  `status` varchar(1) DEFAULT '0',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '删除标记 0未删除 1已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '机构表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='机构表';
 
 -- ----------------------------
 -- Records of cup_org
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_org` VALUES (1, 0, '0', 'cup山西分公司', '山西太原', '18988888888', 0, '0', '2020-10-28 14:24:43', '2020-10-28 14:31:11', 0);
 INSERT INTO `cup_org` VALUES (2, 1, '0', '技术部', '山西太原', '111', 2, '0', '2020-10-28 14:26:02', '2020-12-03 16:47:15', 0);
 INSERT INTO `cup_org` VALUES (3, 1, '0', '财务部', '山西太原', '18911111111', 0, '0', '2020-10-28 14:26:21', '2020-11-29 15:42:35', 0);
@@ -245,45 +239,65 @@ INSERT INTO `cup_org` VALUES (7, 6, '6', '技术部', '山西太原', NULL, 0, '
 INSERT INTO `cup_org` VALUES (8, 6, '6', '财务部', '山西太原', NULL, 0, '0', '2020-10-28 14:26:02', '2020-10-28 14:31:35', 0);
 INSERT INTO `cup_org` VALUES (9, 6, '6', '业务部', '山西太原', '111', 0, '1', '2020-10-28 14:26:02', '2020-11-25 16:38:26', 0);
 INSERT INTO `cup_org` VALUES (10, 6, '6', '技术部', '山西太原', '188', 0, '1', '2020-10-28 14:26:02', '2020-11-25 16:38:20', 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for cup_qrcode
+-- ----------------------------
+DROP TABLE IF EXISTS `cup_qrcode`;
+CREATE TABLE `cup_qrcode` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `qrcode` longtext COMMENT '二维码图片base64字符串',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='二维码图片表';
+
+-- ----------------------------
+-- Records of cup_qrcode
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_role
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_role`;
-CREATE TABLE `cup_role`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色名称',
-  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色编码',
-  `remark` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  `ds_type` int NULL DEFAULT 1 COMMENT '数据权限：1全部数据  2按明细设置  3所在公司（部门）及以下数据 4所在公司（部门）数据 5仅本人数据 ',
-  `ds_scope` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '数据范围(数据权限是2按明细设置时有值)',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '是否启用 0是 1否',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '是否删除 0否 1是',
+CREATE TABLE `cup_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(20) DEFAULT NULL COMMENT '角色名称',
+  `code` varchar(20) DEFAULT NULL COMMENT '角色编码',
+  `remark` varchar(50) DEFAULT NULL COMMENT '备注',
+  `ds_type` int(11) DEFAULT '1' COMMENT '数据权限：1全部数据  2按明细设置  3所在公司（部门）及以下数据 4所在公司（部门）数据 5仅本人数据 ',
+  `ds_scope` varchar(100) DEFAULT NULL COMMENT '数据范围(数据权限是2按明细设置时有值)',
+  `status` varchar(1) DEFAULT '0' COMMENT '是否启用 0是 1否',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除 0否 1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='角色表';
 
 -- ----------------------------
 -- Records of cup_role
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_role` VALUES (1, '管理员', 'admin', '我是管理员', 1, '1,3,4,5', '0', '2020-11-24 22:02:32', '2020-11-29 12:40:36', 0);
-INSERT INTO `cup_role` VALUES (3, '普通用户', 'customer', '', 2, '6,9,10', '0', '2020-11-24 22:02:32', '2020-11-26 13:08:42', 0);
+INSERT INTO `cup_role` VALUES (3, '普通用户', 'customer', '', 5, '6,9,10', '0', '2020-11-24 22:02:32', '2020-12-04 15:17:12', 0);
 INSERT INTO `cup_role` VALUES (7, '测试角色', 'test', 't', 1, '', '1', '2020-11-26 13:31:22', '2020-11-29 16:08:30', 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_role_menu`;
-CREATE TABLE `cup_role_menu`  (
-  `role_id` int NOT NULL COMMENT '角色id',
-  `menu_id` int NOT NULL COMMENT '菜单id',
-  PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色菜单表' ROW_FORMAT = DYNAMIC;
+CREATE TABLE `cup_role_menu` (
+  `role_id` int(11) NOT NULL COMMENT '角色id',
+  `menu_id` int(11) NOT NULL COMMENT '菜单id',
+  PRIMARY KEY (`role_id`,`menu_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='角色菜单表';
 
 -- ----------------------------
 -- Records of cup_role_menu
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_role_menu` VALUES (1, 1);
 INSERT INTO `cup_role_menu` VALUES (1, 2);
 INSERT INTO `cup_role_menu` VALUES (1, 3);
@@ -372,49 +386,81 @@ INSERT INTO `cup_role_menu` VALUES (8, 38);
 INSERT INTO `cup_role_menu` VALUES (8, 39);
 INSERT INTO `cup_role_menu` VALUES (8, 40);
 INSERT INTO `cup_role_menu` VALUES (8, 41);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_user
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_user`;
-CREATE TABLE `cup_user`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '登录名',
-  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '密码',
-  `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户昵称',
-  `avatar` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '头像',
-  `org_id` int NULL DEFAULT NULL COMMENT '部门id',
-  `phone` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '手机号',
-  `email` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '状态: 0正常 1停用',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` int NULL DEFAULT 0 COMMENT '删除标志 0未删除 1已删除',
+CREATE TABLE `cup_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(20) DEFAULT NULL COMMENT '登录名',
+  `password` varchar(50) DEFAULT NULL COMMENT '密码',
+  `nickname` varchar(50) DEFAULT NULL COMMENT '用户昵称',
+  `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
+  `org_id` int(11) DEFAULT NULL COMMENT '部门id',
+  `phone` varchar(12) DEFAULT NULL COMMENT '手机号',
+  `email` varchar(20) DEFAULT NULL COMMENT '邮箱',
+  `status` varchar(1) DEFAULT '0' COMMENT '状态: 0正常 1停用',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '删除标志 0未删除 1已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
 -- ----------------------------
 -- Records of cup_user
 -- ----------------------------
-INSERT INTO `cup_user` VALUES (5, 'admin', 'b9d11b3be25f5a1a7dc8ca04cd310b28', '系统管理员', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 2, '18888888888', '66@qq.com', '0', '2020-11-19 18:33:37', '2020-12-03 22:08:36', 0);
-INSERT INTO `cup_user` VALUES (8, 'wk', 'eadbd8c4c841524a70b324164881f812', '悟空1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 5, '18888888888', '22@qq.com', '0', '2020-11-23 23:21:36', '2020-12-03 21:40:28', 0);
-INSERT INTO `cup_user` VALUES (9, 'test', '5a2e54ee57e5b7273b9a8fed78c1ebd8', '测试用户', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 1, '18911111111', '22@qq.com', '1', '2020-11-25 18:25:00', '2020-12-03 21:40:30', 0);
+BEGIN;
+INSERT INTO `cup_user` VALUES (5, 'admin', 'b9d11b3be25f5a1a7dc8ca04cd310b28', '系统管理员', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 0, '18888888888', '66@qq.com', '0', '2020-11-19 18:33:37', '2020-12-04 15:31:05', 0);
+INSERT INTO `cup_user` VALUES (8, 'wk', 'eadbd8c4c841524a70b324164881f812', '悟空1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 5, '18888888888', '22@qq.com', '0', '2020-11-23 23:21:36', '2020-12-04 15:12:59', 0);
+INSERT INTO `cup_user` VALUES (9, 'test', '5a2e54ee57e5b7273b9a8fed78c1ebd8', '测试用户1122', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 1, '18911111111', '22@qq.com', '1', '2020-11-25 18:25:00', '2020-12-04 16:07:02', 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cup_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `cup_user_role`;
-CREATE TABLE `cup_user_role`  (
-  `user_id` int NOT NULL COMMENT '用户id',
-  `role_id` int NOT NULL COMMENT '角色id',
-  PRIMARY KEY (`user_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户角色关联表' ROW_FORMAT = DYNAMIC;
+CREATE TABLE `cup_user_role` (
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `role_id` int(11) NOT NULL COMMENT '角色id',
+  PRIMARY KEY (`user_id`,`role_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='用户角色关联表';
 
 -- ----------------------------
 -- Records of cup_user_role
 -- ----------------------------
+BEGIN;
 INSERT INTO `cup_user_role` VALUES (5, 1);
 INSERT INTO `cup_user_role` VALUES (8, 3);
 INSERT INTO `cup_user_role` VALUES (9, 3);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for cup_wx_user
+-- ----------------------------
+DROP TABLE IF EXISTS `cup_wx_user`;
+CREATE TABLE `cup_wx_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `nick_name` varchar(20) DEFAULT NULL COMMENT '微信昵称',
+  `gender` int(11) DEFAULT NULL COMMENT '性别',
+  `language` varchar(10) DEFAULT NULL COMMENT '语言',
+  `city` varchar(10) DEFAULT NULL COMMENT '城市',
+  `province` varchar(10) DEFAULT NULL COMMENT '省会',
+  `country` varchar(10) DEFAULT NULL COMMENT '国家',
+  `avatar_url` varchar(500) DEFAULT NULL COMMENT '微信头像url',
+  `open_id` varchar(50) DEFAULT NULL COMMENT '微信openId',
+  `password` varchar(50) DEFAULT NULL COMMENT '密码',
+  `register_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+  `last_login_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '最后登录时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除标志',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='微信用户信息表';
+
+-- ----------------------------
+-- Records of cup_wx_user
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

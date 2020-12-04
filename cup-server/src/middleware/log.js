@@ -17,10 +17,12 @@ module.exports = (options, app) => {
       const params = ctx.request.body.post;
       const response = ctx.response.body;
 
-      const status = response.errno;
+      const errorNo = response.errno;
       let errorMsg;
-      if (status !== 0) {
+      let status = '0';
+      if (errorNo !== 0) {
         errorMsg = JSON.stringify(response.errmsg);
+        status = '1';
       }
       // 获取ip和地址
       const addrInfo = await think.service('ip', 'admin').getAddress();
@@ -36,10 +38,15 @@ module.exports = (options, app) => {
         oper_ip: addrInfo.ip,
         oper_location: addrInfo.addr.split(' ')[0],
         status: status,
-        error_msg: errorMsg
+        error_msg: errorMsg,
+        error_no: errorNo
       };
       // 新增日志对象
-      await think.service('log', 'admin').add(logData);
+      try {
+        const result = await think.service('log', 'admin').add(logData);
+      } catch (e) {
+        console.log('新增日志失败');
+      }
     });
   };
 };
