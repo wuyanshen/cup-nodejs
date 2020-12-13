@@ -203,7 +203,7 @@ async function diskInfo() {
   const usageRate = (used / total * 100).toFixed(2);
   total = (total / 1024 / 1024 / 1024).toFixed(2) + ' GB';
   used = (used / 1024 / 1024 / 1024).toFixed(2) + ' GB';
-  console.log(`硬盘总容量：${total} 已用：${used} 可用：${available} 硬盘使用率：${usageRate}`);
+  // console.log(`硬盘总容量：${total} 已用：${used} 可用：${available} 硬盘使用率：${usageRate}`);
   return {
     total,
     used,

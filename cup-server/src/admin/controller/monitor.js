@@ -1,7 +1,7 @@
 const Base = require('./base');
 const {sysInfo, cpuInfo, diskInfo, memInfo} = require('../util/os');
 const moment = require('moment');
-
+var interval = -1;
 module.exports = class extends Base {
   /**
    * @api {get} /monitor/sysInfo 查询系统信息
@@ -55,6 +55,26 @@ module.exports = class extends Base {
       time: moment().format('HH:mm:ss')
     };
 
-    return this.success(data);
+    return data;
+  }
+
+  /**
+   * 和浏览器端websocket建立连接后
+   */
+  async openAction() {
+    think.logger.info('=== socket 打开 ' + think.datetime() + ' ===');
+    interval = setInterval(async() => {
+      const data = await this.sysInfoAction();
+      this.emit('systemInfo', data);
+    }, 1000);
+  }
+
+  /**
+   * 和浏览器端websocket断开连接后
+   */
+  async closeAction() {
+    think.logger.info('=== socket 关闭 ' + think.datetime() + ' ===');
+    clearInterval(interval);
+    interval = -1;
   }
 };

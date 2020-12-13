@@ -25,6 +25,7 @@ import { resetForm, handleDateRange, getTreeCheckedKeys, setTreeNodeCheck } from
 import { getDicts } from '@/api/dict/item'
 import { getConfig } from '@/api/config'
 import JsonViewer from 'vue-json-viewer'
+import VueSocketIO from 'vue-socket.io'
 
 // 全局方法挂载
 Vue.prototype.resetForm = resetForm
@@ -63,6 +64,14 @@ Vue.prototype.msgInfo = function(msg) {
 Vue.component('RightToolbar', RightToolbar)
 Vue.component('Pagination', Pagination)
 Vue.component('JsonViewer', JsonViewer)
+
+// socket
+Vue.use(
+  new VueSocketIO({
+    debug: false,
+    connection: 'http://127.0.0.1:9999/admin'
+  })
+)
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })

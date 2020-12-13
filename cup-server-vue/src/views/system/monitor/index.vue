@@ -219,32 +219,39 @@ export default {
     }
   },
   created() {
-    this.init()
-    this.monitor = window.setInterval(() => {
-      setTimeout(() => {
-        this.init()
-      }, 2)
-    }, 3500)
+    // 开启websocket连接
+    this.$socket.connect()
   },
   destroyed() {
-    clearInterval(this.monitor)
+    // 断开websocket连接
+    this.$socket.close()
+  },
+  sockets: {
+    connect() { // 监听connect方法
+      console.log('socket 建立连接')
+    },
+    disconnect() {
+      console.log('socket 断开连接')
+    },
+    // 自定义方法 -> 后台socket返回数据
+    systemInfo(data) {
+      this.show = true
+      this.data = data
+      if (this.cpuInfo.xAxis.data.length >= 8) {
+        this.cpuInfo.xAxis.data.shift()
+        this.memoryInfo.xAxis.data.shift()
+        this.cpuInfo.series[0].data.shift()
+        this.memoryInfo.series[0].data.shift()
+      }
+
+      this.cpuInfo.xAxis.data.push(data.time)
+      this.memoryInfo.xAxis.data.push(data.time)
+      this.cpuInfo.series[0].data.push(parseFloat(data.cpu.used))
+      this.memoryInfo.series[0].data.push(parseFloat(data.memory.usageRate))
+    }
   },
   methods: {
     init() {
-      sysInfo().then(data => {
-        this.show = true
-        this.data = data
-        if (this.cpuInfo.xAxis.data.length >= 8) {
-          this.cpuInfo.xAxis.data.shift()
-          this.memoryInfo.xAxis.data.shift()
-          this.cpuInfo.series[0].data.shift()
-          this.memoryInfo.series[0].data.shift()
-        }
-        this.cpuInfo.xAxis.data.push(data.time)
-        this.memoryInfo.xAxis.data.push(data.time)
-        this.cpuInfo.series[0].data.push(parseFloat(data.cpu.used))
-        this.memoryInfo.series[0].data.push(parseFloat(data.memory.usageRate))
-      })
     }
   }
 

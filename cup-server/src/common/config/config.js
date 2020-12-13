@@ -1,6 +1,7 @@
 // default config
 module.exports = {
   workers: 1,
+  stickyCluster: true, // 开启 StickyCluster 功能，使客户端所有的请求命中同一进程
   port: 9999,
   // 微信配置
   weixin: {

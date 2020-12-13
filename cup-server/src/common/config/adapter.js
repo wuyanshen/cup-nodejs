@@ -5,6 +5,7 @@ const {Console, File, DateFile} = require('think-logger3');
 const path = require('path');
 const isDev = think.env === 'development';
 const mysql = require('./database');
+const socketio = require('think-websocket-socket.io');
 
 /**
  * cache adapter config
@@ -95,5 +96,22 @@ exports.logger = {
     pattern: '-yyyy-MM-dd',
     alwaysIncludePattern: true,
     filename: path.join(think.ROOT_PATH, 'logs/app.log')
+  }
+};
+
+exports.websocket = {
+  type: 'socketio',
+  common: {
+    // common config
+  },
+  socketio: {
+    handle: socketio,
+    allowOrigin: '', // 默认所有的域名都允许访问
+    path: '/socket.io', // 默认 '/socket.io'
+    adapter: null, // 默认无 adapter
+    messages: {
+      open: '/admin/monitor/open', // 建立连接时处理对应到 websocket Controller 下的 open Action
+      close: '/admin/monitor/close' // 关闭连接时处理的 Action
+    }
   }
 };

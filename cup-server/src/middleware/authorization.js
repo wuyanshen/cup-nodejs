@@ -5,9 +5,13 @@ module.exports = (options, app) => {
   return async(ctx, next) => {
     think.logger.info('=== 权限中间件执行 开始 ' + think.datetime() + ' ===');
 
-    if (ctx.method !== 'GET' && ctx.controller !== 'auth') {
-      return ctx.fail(2000, '演示环境，不允许操作');
+    if (ctx.method === 'WEBSOCKET') {
+      return next();
     }
+
+    /*if (ctx.method !== 'GET' && ctx.controller !== 'auth') {
+      return ctx.fail(2000, '演示环境，不允许操作');
+    }*/
 
     // 判断用户是否已登录
     if (ctx.controller !== 'auth') {
@@ -35,7 +39,6 @@ module.exports = (options, app) => {
       const username = res.username;
       username && (think.username = username);
     }
-
 
     // 如果为非公开，非登录的action，则验证用户是否有访问接口的权限
     const publicAction = ctx.config('publicAction');

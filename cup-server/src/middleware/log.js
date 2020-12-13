@@ -4,7 +4,7 @@
 module.exports = (options, app) => {
   return (ctx, next) => {
     const method = ctx.method;
-    if (method === 'GET') {
+    if (method === 'GET' || 'WEBSOCKET') {
       return next();
     }
 
