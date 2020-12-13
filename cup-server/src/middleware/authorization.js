@@ -9,9 +9,9 @@ module.exports = (options, app) => {
       return next();
     }
 
-    /*if (ctx.method !== 'GET' && ctx.controller !== 'auth') {
+    /* if (ctx.method !== 'GET' && ctx.controller !== 'auth') {
       return ctx.fail(2000, '演示环境，不允许操作');
-    }*/
+    } */
 
     // 判断用户是否已登录
     if (ctx.controller !== 'auth') {
